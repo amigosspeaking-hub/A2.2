@@ -513,7 +513,7 @@ section.pg[data-page-label]::before{content:attr(data-page-label)}
       <button class="tbtn" id="audBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6.5 9H3v6h3.5L11 19z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 6a9 9 0 0 1 0 12"/></svg><span>الصوتيات</span></button>
       <button class="tbtn" id="idxBtn" title="فهرس أنشطة الوحدة بترتيب الكتاب"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3.5 6h.01"/><path d="M3.5 12h.01"/><path d="M3.5 18h.01"/></svg><span>فهرس الوحدة</span></button>
       <button class="tbtn" id="hideBtn" title="إخفاء أزرار الإجابات والصوت من صفحات الكتاب — واضغط تاني لتظهر عادي"><svg id="eyeIc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg><span id="hideLbl">إخفاء الأزرار</span></button>
-      <button class="tbtn" id="editBtn" title="وضع تعديل مواقع الأزرار — اسحب كل زر لمكانه الصحيح"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l-3 3-3-3"/><path d="M19 9l3 3-3 3"/><path d="M2 12h20"/><path d="M12 2v20"/></svg><span>تعديل المواقع</span></button>
+      
     </div>
   </div>
   <div class="tabs" id="tabs"></div>
@@ -1525,7 +1525,7 @@ function makeDrag(el, key, X0, Y0){
     window.addEventListener('blur', end);
   });
 }
-$('editBtn').onclick = ()=>{
+if ($('editBtn')) $('editBtn').onclick = ()=>{
   editOn = !editOn;
   $('editBtn').classList.toggle('on', editOn);
   $('editTray').classList.toggle('open', editOn);
@@ -1976,7 +1976,7 @@ document.addEventListener('DOMContentLoaded', function(){
 /* IA_START */
 const IA_SAVED = {};
 const IA_SCALE_SAVED = 1;
-const IA_BAKED_AT = 1794540557236;
+const IA_BAKED_AT = 1794543396772;
 const IA_BUILD = 'a22-unit5-editable-v3-precise';
 const IA_VER = 'الوحدات الأولى إلى الرابعة · مراجعة شاملة';
 /* IA_END */
@@ -2660,8 +2660,8 @@ document.addEventListener('click', ev=>{
   tray.querySelector('#ansTrayVer').textContent = IA_VER;
   const editTray = document.getElementById('editTray');
   editTray.parentNode.insertBefore(tray, editTray.nextSibling);
-  const _editClick = $('editBtn').onclick;
-  $('editBtn').onclick = function(){
+  const _editClick = $('editBtn') ? $('editBtn').onclick : function(){};
+  if ($('editBtn')) $('editBtn').onclick = function(){
     _editClick();
     tray.classList.toggle('open', editOn);
     if (!editOn){ const p = document.getElementById('ansPanel'); if (p) p.classList.remove('open'); selected = null; }
